@@ -1,5 +1,13 @@
-const baseUrl = "https://pokeapi.co/api/v2/";
+const baseUrl = 'https://pokeapi.co/api/v2/';
 
-export default {
-    baseUrl
+const urls = {
+    pokemons: {
+        base: '/pokemon/',
+        byId: (id: string): string => urls.pokemons.base + `${id}`,
+    }
 }
+
+export {
+    baseUrl
+    , urls
+};

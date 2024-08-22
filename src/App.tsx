@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect} from 'react';
 import './App.css';
+import {Outlet} from "react-router-dom";
+import HeaderComponent from "./components/HeaderComponent";
+import {pokemonActions} from "./redux/slices/pokemonsSlice";
+import {dataActions} from "./redux/slices/dataSlice";
+import {useAppDispatch} from "./redux/store";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(pokemonActions.loadPokemons());
+        dispatch(dataActions.loadData());
+    }, [dispatch]);
+
+    return (
+        <div>
+            <HeaderComponent/>
+            <Outlet/>
+        </div>
+    );
 }
 
 export default App;
