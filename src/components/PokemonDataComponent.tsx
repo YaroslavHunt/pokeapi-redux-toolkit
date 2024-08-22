@@ -4,6 +4,7 @@ import {IDataPokemon} from "../models/IData";
 import PokemonImgComponent from "./PokemonImgComponent";
 import {urls} from "../constants/urls";
 import '../styles/PokemonDataComponent.css'
+import LikeComponent from "./LikeComponent";
 
 interface IProps {
     pokemon: IDataPokemon
@@ -23,6 +24,7 @@ const PokemonDataComponent: FC<IProps> = ({pokemon}) => {
                     navigate(`${id}`)
                 }}>{pokemon.name}
                 </button>
+                <LikeComponent/>
             </div>
         </div>
     );

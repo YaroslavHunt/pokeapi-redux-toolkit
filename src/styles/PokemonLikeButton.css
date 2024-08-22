@@ -1,0 +1,21 @@
+.pokemon-like-button-grey {
+    color: grey;
+    border: none;
+    border-radius: 50%;
+    margin-top: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.pokemon-like-button-grey:hover {
+    color: palevioletred;
+}
+
+.pokemon-like-button-red {
+    color: red;
+    border: none;
+    border-radius: 50%;
+    margin-top: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
