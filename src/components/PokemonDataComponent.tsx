@@ -1,18 +1,29 @@
 import React, {FC} from 'react';
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {IDataPokemon} from "../models/IData";
+import PokemonImgComponent from "./PokemonImgComponent";
+import {urls} from "../constants/urls";
+import '../styles/PokemonDataComponent.css'
 
 interface IProps {
     pokemon: IDataPokemon
 }
 
-const PokemonDataComponent:FC<IProps> = ({pokemon}) => {
-
+const PokemonDataComponent: FC<IProps> = ({pokemon}) => {
+    const url = pokemon.url;
+    const parts = url.split('/');
+    const id = parts[parts.length - 2];
+    const navigate = useNavigate();
 
     return (
-        <div key={pokemon.url}>
-            {/*<img src={pokemon.sprites.other.dream_world.front_default} alt={pokemon.name}/>*/}
-            <Link to={pokemon.url}>{pokemon.name}</Link>
+        <div key={id}>
+            <div className="pokemon-data-container">
+                <PokemonImgComponent imgUrl={urls.image.byId(id)}/>
+                <button className="pokemon-nav-button" onClick={() => {
+                    navigate(`${id}`)
+                }}>{pokemon.name}
+                </button>
+            </div>
         </div>
     );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import PokemonsComponent from "../components/PokemonsComponent";
 
-const PocemonsPage = () => {
+const PokemonsPage = () => {
     return (
         <>
             <PokemonsComponent/>
@@ -9,4 +9,4 @@ const PocemonsPage = () => {
     );
 };
 
-export default PocemonsPage;
+export default PokemonsPage;

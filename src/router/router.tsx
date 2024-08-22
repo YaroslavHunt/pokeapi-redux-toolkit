@@ -1,17 +1,17 @@
 import {createBrowserRouter, RouteObject} from "react-router-dom";
 import App from "../App";
-import PocemonsPage from "../pages/PocemonsPage";
+import PokemonsPage from "../pages/PokemonsPage";
 import FavoritesPage from "../pages/FavoritesPage";
-import PocemonPage from "../pages/PocemonPage";
+import PokemonPage from "../pages/PokemonPage";
 
 const routes: RouteObject[] = [
     {
         path: '',
         element: <App/>,
         children: [
-            {path:'pokemons', element: <PocemonsPage/>},
+            {path:'pokemons', element: <PokemonsPage/>},
             {path:'favorites', element: <FavoritesPage/>},
-            {path:'pokemon/:id', element: <PocemonPage/>}
+            {path:'pokemons/:id', element: <PokemonPage/>}
         ]
     }
 ];

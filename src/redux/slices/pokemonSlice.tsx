@@ -2,34 +2,58 @@ import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {pokemonService} from "../../services/api.service";
 import {AxiosError} from "axios";
 import {IDataPokemon} from "../../models/IData";
+import {IPokemon} from "../../models/IPokemon";
+
 
 type PokemonSliceType = {
     pokemons: IDataPokemon[],
-    isLoaded: boolean
+    isLoaded: boolean,
+    pokemon: IPokemon
 }
 
 const pokemonInitState: PokemonSliceType = {
     pokemons: [],
-    isLoaded: false
+    isLoaded: false,
+    pokemon: {
+        id: 1,
+        name: "",
+        abilities: [],
+        stats: [],
+        sprites: {other: {dream_world: {front_default: ""}}},
+        forms: []
+    }
 }
 
 
 const loadPokemons = createAsyncThunk(
-    'pokemons/loadPokemons',
+    'pokemonSlice/loadPokemons',
     async (_, thunkAPI) => {
         try {
             let pokemons = await pokemonService.getAll();
             thunkAPI.dispatch(pokemonActions.changeLoadState(true));
             return thunkAPI.fulfillWithValue(pokemons);
         } catch (e) {
-            let error = e as AxiosError;
+            const error = e as AxiosError;
             return thunkAPI.rejectWithValue(error.response?.data);
         }
     }
 );
 
+const loadPokemonById = createAsyncThunk(
+    'pokemonSlice/loadPokemonById',
+    async (id: string, thunkAPI) => {
+        try {
+            const pokemon = await pokemonService.getPokemonById(id);
+            return thunkAPI.fulfillWithValue(pokemon);
+        } catch (e) {
+            const error = e as AxiosError;
+            return thunkAPI.rejectWithValue(error.response?.data);
+        }
+    }
+)
 
-export const pokemonsSlice = createSlice({
+
+export const pokemonSlice = createSlice({
     name: "pokemons",
     initialState: pokemonInitState,
     reducers: {
@@ -39,16 +63,20 @@ export const pokemonsSlice = createSlice({
     },
     extraReducers: builder =>
         builder
+            .addCase(loadPokemonById.fulfilled, (state, action) => {
+                state.pokemon = action.payload;
+            })
             .addCase(loadPokemons.fulfilled, (state, action) => {
                 state.pokemons = action.payload
             })
-            .addCase(loadPokemons.rejected, (state, action) => {
+            .addCase(loadPokemons.rejected, () => {
                 console.log("Rejected");
             })
 });
 
 export const pokemonActions = {
-    ...pokemonsSlice.actions,
-    loadPokemons
+    ...pokemonSlice.actions,
+    loadPokemons,
+    loadPokemon: loadPokemonById
 }
 

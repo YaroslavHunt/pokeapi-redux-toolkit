@@ -20,7 +20,7 @@ const pokemonService = {
         const response = await axiosInstance.get<IData>(urls.pokemons.base);
         return response.data.results;
     },
-    getPokemon: async (id: string): Promise<IPokemon> => {
+    getPokemonById: async (id: string): Promise<IPokemon> => {
         const response = await axiosInstance.get<IPokemon>(urls.pokemons.byId(id));
         return response.data;
     }
