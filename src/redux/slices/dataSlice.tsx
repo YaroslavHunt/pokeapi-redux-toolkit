@@ -1,15 +1,20 @@
-import {IData} from "../../models/IData";
+import {IData, IDataPokemon} from "../../models/IData";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {dataService, pokemonService} from "../../services/api.service";
 import {AxiosError} from "axios";
 import {IPokemon} from "../../models/IPokemon";
 
 type DataSliceType = {
-    data: IData | null
+    data: IData
 }
 
 const dataInitState: DataSliceType = {
-    data: null
+    data: {
+        count: 0,
+        next: "",
+        previous: "",
+        results: []
+    }
 }
 
 const loadData = createAsyncThunk(

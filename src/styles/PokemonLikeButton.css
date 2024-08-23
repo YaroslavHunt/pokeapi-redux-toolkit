@@ -1,4 +1,5 @@
 .pokemon-like-button-grey {
+    background-color: #fff;
     color: grey;
     border: none;
     border-radius: 50%;
@@ -12,6 +13,7 @@
 }
 
 .pokemon-like-button-red {
+    background-color: #fff;
     color: red;
     border: none;
     border-radius: 50%;

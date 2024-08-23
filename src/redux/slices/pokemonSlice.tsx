@@ -24,12 +24,11 @@ const pokemonInitState: PokemonSliceType = {
     }
 }
 
-
 const loadPokemons = createAsyncThunk(
     'pokemonSlice/loadPokemons',
-    async (_, thunkAPI) => {
+    async ({ offset, limit }: { offset: string, limit: string }, thunkAPI) => {
         try {
-            let pokemons = await pokemonService.getAll();
+            const pokemons = await pokemonService.getAll(offset ,limit);
             thunkAPI.dispatch(pokemonActions.changeLoadState(true));
             return thunkAPI.fulfillWithValue(pokemons);
         } catch (e) {

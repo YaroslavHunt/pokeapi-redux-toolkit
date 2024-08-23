@@ -10,6 +10,7 @@ const routes: RouteObject[] = [
         element: <App/>,
         children: [
             {path:'pokemons', element: <PokemonsPage/>},
+            {path:'pokemons?page=:page', element: <PokemonsPage/>},
             {path:'favorites', element: <FavoritesPage/>},
             {path:'pokemons/:id', element: <PokemonPage/>}
         ]

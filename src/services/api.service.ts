@@ -16,8 +16,8 @@ const dataService = {
 }
 
 const pokemonService = {
-    getAll: async (): Promise<IDataPokemon[]> => {
-        const response = await axiosInstance.get<IData>(urls.pokemons.base);
+    getAll: async (offset:string, limit:string): Promise<IDataPokemon[]> => {
+        const response = await axiosInstance.get<IData>(urls.pokemons.byLimit(offset, limit));
         return response.data.results;
     },
     getPokemonById: async (id: string): Promise<IPokemon> => {
