@@ -1,13 +1,15 @@
 export interface IPokemon {
     id: number;
     name: string;
-    abilities: Ability[];
-    stats: Stat[];
+    abilities: AbilityData[];
+    stats: StatData[];
     sprites: Sprite;
     forms: Form[];
+    types: TypeData[];
+    weight: number;
 }
 
-interface Ability {
+export interface AbilityData {
     ability: {
         name: string,
         url: string
@@ -16,7 +18,7 @@ interface Ability {
     slot: number
 }
 
-interface Stat {
+export interface StatData {
     base_stat: number,
     effort: number,
     stat: {
@@ -25,7 +27,15 @@ interface Stat {
     }
 }
 
-interface Sprite {
+export interface TypeData {
+    slot: number
+    type: {
+        name: string,
+        url: string
+    }
+}
+
+export interface Sprite {
     other: {
         dream_world: {
             front_default: string;
@@ -33,8 +43,10 @@ interface Sprite {
     }
 }
 
-interface Form {
+export interface Form {
     name: string,
     url: string
 }
+
+
 

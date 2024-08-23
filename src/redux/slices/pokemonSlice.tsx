@@ -20,7 +20,9 @@ const pokemonInitState: PokemonSliceType = {
         abilities: [],
         stats: [],
         sprites: {other: {dream_world: {front_default: ""}}},
-        forms: []
+        forms: [],
+        types:[],
+        weight: 0
     }
 }
 

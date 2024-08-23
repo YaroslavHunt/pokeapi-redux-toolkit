@@ -1,0 +1,42 @@
+.abilities-container, .types-container {
+    width: 100%;
+    margin: 5px;
+    font-family: Arial, sans-serif;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+}
+
+.abilities-container h2, .types-container h2 {
+    margin-top: 0;
+    color: #333;
+    text-align: center;
+}
+
+.abilities-list, .types-list {
+    list-style: none;
+    padding: 0;
+}
+
+.abilities-list li, .types-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+}
+
+.abilities-list li:last-child, .types-list li:last-child {
+    border-bottom: none;
+}
+
+.ability-name, .type-name {
+    text-transform: capitalize;
+    font-weight: bold;
+    color: #555;
+}
+
+.is-hidden, .type-effectiveness {
+    color: #888;
+}
