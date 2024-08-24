@@ -1,6 +1,5 @@
 import React, {FC} from 'react';
 import {IPokemon} from "../models/IPokemon";
-import PokemonImgComponent from "./PokemonImgComponent";
 import PokemonAbilitiesComponent from "./PokemonAbilitiesComponent";
 import PokemonStatsComponent from "./PokemonStatsComponent";
 import PokemonTypesComponent from "./PokemonTypesComponent";
@@ -15,7 +14,7 @@ const PokemonComponent: FC<IProps> = ({pokemon}) => {
 
     return (
         <div className={'pokemon-container'}>
-            <PokemonImgComponent imgUrl={pokemon.sprites.other.dream_world.front_default}/>
+            <img className={'pokemon-image'} src={pokemon.sprites.other.dream_world.front_default} alt={pokemon.name}/>
             <h1 style={titleStyle}>{pokemon.name}</h1>
             <AddToFavoriteComponent pokemon={pokemon}/>
             <div className={'san-container'}>
@@ -30,11 +29,6 @@ const PokemonComponent: FC<IProps> = ({pokemon}) => {
 };
 
 export default PokemonComponent;
-
-
-
-
-
 
 
 const titleStyle: React.CSSProperties = {

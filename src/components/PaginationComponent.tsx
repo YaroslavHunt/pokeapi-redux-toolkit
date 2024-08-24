@@ -7,12 +7,12 @@ import {dataActions} from "../redux/slices/dataSlice";
 
 interface IProps {
     page: string
+    total: number
 }
 
-const PaginationComponent: FC<IProps> = ({page}) => {
+const PaginationComponent: FC<IProps> = ({page, total}) => {
 
-    const data = useAppSelector(state => state.dataSlice.data);
-    const total = Math.ceil(data.count / 20);
+
     const pageNum = parseInt(page);
     const prev = pageNum > 1 ? pageNum - 1 : null;
     const next = pageNum < total ? pageNum + 1 : null;

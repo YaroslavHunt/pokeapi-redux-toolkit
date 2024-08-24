@@ -1,18 +1,14 @@
 import React, {FC} from 'react';
+import {IPokemon} from "../models/IPokemon";
 import {useNavigate} from "react-router-dom";
-import {IDataPokemon} from "../models/IData";
 import {urls} from "../constants/urls";
-import '../styles/PokemonDataComponent.css'
-import LikeComponent from "./LikeComponent";
 
 interface IProps {
-    pokemon: IDataPokemon
+    pokemon: IPokemon;
 }
 
-const PokemonDataComponent: FC<IProps> = ({pokemon}) => {
-    const url = pokemon.url;
-    const parts = url.split('/');
-    const id = parts[parts.length - 2];
+const FavoriteComponent:FC<IProps> = ({pokemon}) => {
+    const id = pokemon.id.toString();
     const navigate = useNavigate();
 
     return (
@@ -23,10 +19,9 @@ const PokemonDataComponent: FC<IProps> = ({pokemon}) => {
                     navigate(`${id}`)
                 }}>{pokemon.name}
                 </button>
-                <LikeComponent data={pokemon}/>
             </div>
         </div>
     );
 };
 
-export default PokemonDataComponent;
+export default FavoriteComponent;

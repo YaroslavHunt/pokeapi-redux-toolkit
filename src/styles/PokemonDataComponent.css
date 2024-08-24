@@ -12,6 +12,13 @@
     margin: 10px;
 }
 
+.pokemon-preview {
+    width: 100px;
+    height: 100px;
+
+}
+
+
 .pokemon-nav-button {
     margin-top: 8px;
     padding: 8px 16px;
