@@ -1,37 +1,18 @@
-import React, {FC, useEffect, useState} from 'react';
-import {IDataPokemon} from "../models/IData";
-import {IPokemon} from "../models/IPokemon";
+import React, { FC } from 'react';
+import { IPokemon } from "../models/IPokemon";
 import FavoriteComponent from "./FavoriteComponent";
 
 interface IProps {
-    data: IDataPokemon[]
+    data: IPokemon[];
 }
 
-const FavoritesComponent: FC<IProps> = ({data}) => {
-    const [favorites, setFavorites] = useState<IPokemon[]>([]);
-
-    useEffect(() => {
-        const storedFavorites: IPokemon[] = [];
-
-        data.forEach(item => {
-            const storageKey = `${item.name}`;
-            const stored = localStorage.getItem(storageKey);
-            if (stored) {
-                const parsed = JSON.parse(stored);
-                storedFavorites.push(parsed);
-            }
-        });
-
-        setFavorites(storedFavorites);
-    }, [data]);
-
+const FavoritesComponent: FC<IProps> = ({ data }) => {
     return (
         <div className="pokemons-container">
-            {
-                favorites.length > 0 ? (
-                    favorites.map(pokemon=> (
-                        <FavoriteComponent pokemon={pokemon}/>
-                    ))
+            {data.length > 0 ? (
+                data.map(pokemon => (
+                    <FavoriteComponent key={pokemon.name} pokemon={pokemon} />
+                ))
             ) : (
                 <p>No favorites added yet.</p>
             )}
@@ -40,3 +21,4 @@ const FavoritesComponent: FC<IProps> = ({data}) => {
 };
 
 export default FavoritesComponent;
+

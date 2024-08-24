@@ -15,7 +15,7 @@ const PaginationComponent: FC<IProps> = ({page, total}) => {
 
     const pageNum = parseInt(page);
     const prev = pageNum > 1 ? pageNum - 1 : null;
-    const next = pageNum < total ? pageNum + 1 : null;
+    const next = pageNum <= total ? pageNum + 1 : null;
     const offset = (pageNum - 1) * 20;
 
 
