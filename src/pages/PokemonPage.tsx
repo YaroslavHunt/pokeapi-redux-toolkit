@@ -15,7 +15,7 @@ const PokemonPage = () => {
         if (id) {
             dispatch(pokemonActions.loadPokemon(id));
         }
-    }, [id]);
+    }, [id, dispatch]);
 
     return (
         <>

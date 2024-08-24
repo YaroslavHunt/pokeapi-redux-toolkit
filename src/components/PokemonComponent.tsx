@@ -5,6 +5,7 @@ import PokemonAbilitiesComponent from "./PokemonAbilitiesComponent";
 import PokemonStatsComponent from "./PokemonStatsComponent";
 import PokemonTypesComponent from "./PokemonTypesComponent";
 import '../styles/PokemonComponent.css'
+import AddToFavoriteComponent from "./AddToFavoriteComponent";
 
 interface IProps {
     pokemon: IPokemon
@@ -16,7 +17,7 @@ const PokemonComponent: FC<IProps> = ({pokemon}) => {
         <div className={'pokemon-container'}>
             <PokemonImgComponent imgUrl={pokemon.sprites.other.dream_world.front_default}/>
             <h1 style={titleStyle}>{pokemon.name}</h1>
-            <button>//todo</button>
+            <AddToFavoriteComponent pokemon={pokemon}/>
             <div className={'san-container'}>
                 <PokemonStatsComponent stats={pokemon.stats}/>
                 <div className={'abilities-types-container'}>
@@ -29,6 +30,11 @@ const PokemonComponent: FC<IProps> = ({pokemon}) => {
 };
 
 export default PokemonComponent;
+
+
+
+
+
 
 
 const titleStyle: React.CSSProperties = {

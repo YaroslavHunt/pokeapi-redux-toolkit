@@ -1,0 +1,13 @@
+.pokemon-like-grey {
+    background-color: #fff;
+    color: grey;
+    cursor: default;
+    font-size: 1.5rem;
+}
+
+.pokemon-like-red {
+    background-color: #fff;
+    color: red;
+    cursor: default;
+    font-size: 1.5rem;
+}

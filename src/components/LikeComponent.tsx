@@ -1,26 +1,32 @@
-import React, { useState } from 'react';
-import '../styles/PokemonLikeButton.css';
+import React, {FC, useEffect, useState} from 'react';
+import '../styles/LikeComponent.css';
+import {IDataPokemon} from "../models/IData";
 
-const PokemonLikeButton = () => {
+interface IProps {
+    data: IDataPokemon,
+}
+
+const LikeComponent:FC<IProps> = ({data}) => {
 
     const [like, setLike] = useState(false);
 
-    const handleClick = () => {
-        setLike(prevState => !prevState);
-    };
+    const storageKey = `${data.name}`;
 
-    //todo
+    useEffect(() => {
+        const stored = localStorage.getItem(storageKey);
+        setLike(!!stored);
+    }, [storageKey]);
 
     return (
-        <div className={'pokemon-like-button-container'}>
-            <button
-                onClick={handleClick}
-                className={like ? 'pokemon-like-button-red' : 'pokemon-like-button-grey'}
+        <div className={'pokemon-like-container'}>
+            <span
+                className={like ? 'pokemon-like-red' : 'pokemon-like-grey'}
             >
                 &#x2764;
-            </button>
+            </span>
         </div>
     );
 };
 
-export default PokemonLikeButton;
+export default LikeComponent;
+

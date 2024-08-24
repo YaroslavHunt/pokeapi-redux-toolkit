@@ -24,7 +24,7 @@ const PokemonDataComponent: FC<IProps> = ({pokemon}) => {
                     navigate(`${id}`)
                 }}>{pokemon.name}
                 </button>
-                <LikeComponent/>
+                <LikeComponent data={pokemon}/>
             </div>
         </div>
     );
