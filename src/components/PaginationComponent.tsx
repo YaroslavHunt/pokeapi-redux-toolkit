@@ -1,6 +1,6 @@
 import React, {FC, useEffect} from 'react';
 import {Link} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../redux/store";
+import {useAppDispatch} from "../redux/store";
 import '../styles/PaginationComponent.css';
 import {pokemonActions} from "../redux/slices/pokemonSlice";
 import {dataActions} from "../redux/slices/dataSlice";

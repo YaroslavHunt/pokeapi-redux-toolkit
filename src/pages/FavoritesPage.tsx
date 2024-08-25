@@ -7,7 +7,7 @@ import { IPokemon } from "../models/IPokemon";
 
 const FavoritesPage = () => {
     const { pokemons } = useAppSelector(state => state.pokemonSlice);
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const [favorites, setFavorites] = useState<IPokemon[]>([]);
     const pageSize = 20;
     const currentPage = parseInt(searchParams.get('page') || '1', 10);
