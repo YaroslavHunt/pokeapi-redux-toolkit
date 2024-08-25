@@ -9,9 +9,11 @@ type PokemonSliceType = {
     pokemons: IDataPokemon[],
     isLoaded: boolean,
     pokemon: IPokemon
+    id: string
 }
 
 const pokemonInitState: PokemonSliceType = {
+    id: "",
     pokemons: [],
     isLoaded: false,
     pokemon: {
@@ -21,16 +23,16 @@ const pokemonInitState: PokemonSliceType = {
         stats: [],
         sprites: {other: {dream_world: {front_default: ""}}},
         forms: [],
-        types:[],
+        types: [],
         weight: 0
     }
 }
 
 const loadPokemons = createAsyncThunk(
     'pokemonSlice/loadPokemons',
-    async ({ offset, limit }: { offset: string, limit: string }, thunkAPI) => {
+    async ({offset, limit}: { offset: string, limit: string }, thunkAPI) => {
         try {
-            const pokemons = await pokemonService.getAll(offset ,limit);
+            const pokemons = await pokemonService.getAll(offset, limit);
             thunkAPI.dispatch(pokemonActions.changeLoadState(true));
             return thunkAPI.fulfillWithValue(pokemons);
         } catch (e) {
@@ -46,6 +48,19 @@ const loadPokemonById = createAsyncThunk(
         try {
             const pokemon = await pokemonService.getPokemonById(id);
             return thunkAPI.fulfillWithValue(pokemon);
+        } catch (e) {
+            const error = e as AxiosError;
+            return thunkAPI.rejectWithValue(error.response?.data);
+        }
+    }
+)
+
+const loadIDByName = createAsyncThunk(
+    'id/loadId',
+    async (name: string, thunkAPI) => {
+        try {
+            const id = await pokemonService.getIdByName(name);
+            return thunkAPI.fulfillWithValue(id);
         } catch (e) {
             const error = e as AxiosError;
             return thunkAPI.rejectWithValue(error.response?.data);
@@ -70,6 +85,9 @@ export const pokemonSlice = createSlice({
             .addCase(loadPokemons.fulfilled, (state, action) => {
                 state.pokemons = action.payload
             })
+            .addCase(loadIDByName.fulfilled, (state, action) => {
+                state.id = action.payload
+            })
             .addCase(loadPokemons.rejected, () => {
                 console.log("Rejected");
             })
@@ -78,6 +96,7 @@ export const pokemonSlice = createSlice({
 export const pokemonActions = {
     ...pokemonSlice.actions,
     loadPokemons,
-    loadPokemon: loadPokemonById
+    loadPokemon: loadPokemonById,
+    loadId: loadIDByName
 }
 

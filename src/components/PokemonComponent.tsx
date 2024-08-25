@@ -1,16 +1,35 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import {IPokemon} from "../models/IPokemon";
 import PokemonAbilitiesComponent from "./PokemonAbilitiesComponent";
 import PokemonStatsComponent from "./PokemonStatsComponent";
 import PokemonTypesComponent from "./PokemonTypesComponent";
 import '../styles/PokemonComponent.css'
 import AddToFavoriteComponent from "./AddToFavoriteComponent";
+import {useAppDispatch, useAppSelector} from "../redux/store";
+import {evoChainActions} from "../redux/slices/evoChainSlice";
+import PokemonFormComponent from "./PokemonFormComponent";
 
 interface IProps {
     pokemon: IPokemon
 }
 
 const PokemonComponent: FC<IProps> = ({pokemon}) => {
+
+    const dispatch = useAppDispatch();
+    const evoChainUrls = useAppSelector(state => state.evoChainSlice.urls);
+    const evoChainUrl = useAppSelector(state => state.evoChainSlice.url);
+    const forms = useAppSelector(state => state.evoChainSlice.forms);
+    const currentUrl = evoChainUrls.find(url => url === evoChainUrl);
+
+    console.log(forms);
+
+    useEffect(() => {
+            dispatch((evoChainActions.loadSpecies(pokemon.id.toString())))
+            dispatch(evoChainActions.loadChain())
+        if (currentUrl) {
+            dispatch(evoChainActions.loadForms(currentUrl));
+        }
+    }, [currentUrl, pokemon.id, dispatch]);
 
     return (
         <div className={'pokemon-container'}>
@@ -23,6 +42,11 @@ const PokemonComponent: FC<IProps> = ({pokemon}) => {
                     <PokemonAbilitiesComponent abilities={pokemon.abilities}/>
                     <PokemonTypesComponent types={pokemon.types}/>
                 </div>
+            </div>
+            <div>
+                {
+                    forms.map(name => <PokemonFormComponent name={name}/>)
+                }
             </div>
         </div>
     );

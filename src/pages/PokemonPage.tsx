@@ -8,8 +8,8 @@ import PokemonComponent from "../components/PokemonComponent";
 const PokemonPage = () => {
 
     const {id} = useParams();
-    const dispatch = useAppDispatch();
     const pokemon = useAppSelector(state => state.pokemonSlice.pokemon);
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (id) {
