@@ -7,9 +7,11 @@ import { IPokemon } from "../models/IPokemon";
 
 const FavoritesPage = () => {
     const { pokemons } = useAppSelector(state => state.pokemonSlice);
-    const [searchParams] = useSearchParams();
-    const currentPage = searchParams.get('page') || '1';
+    const [searchParams, setSearchParams] = useSearchParams();
     const [favorites, setFavorites] = useState<IPokemon[]>([]);
+    const pageSize = 20;
+    const currentPage = parseInt(searchParams.get('page') || '1', 10);
+
 
     useEffect(() => {
         const storedFavorites: IPokemon[] = [];
@@ -26,14 +28,18 @@ const FavoritesPage = () => {
         setFavorites(storedFavorites);
     }, [pokemons]);
 
-    const totalPages = Math.ceil(favorites.length / 20);
+    const totalPages = Math.ceil(favorites.length / pageSize);
+    const offset = (currentPage - 1) * pageSize;
+    const paginatedFavorites = favorites.slice(offset, offset + pageSize);
 
     return (
         <div>
-            <FavoritesComponent data={favorites} />
-            <PaginationComponent page={currentPage} total={totalPages}/>
+            <FavoritesComponent data={paginatedFavorites} />
+            <PaginationComponent page={currentPage.toString()} total={totalPages}/>
         </div>
     );
 };
 
 export default FavoritesPage;
+
+

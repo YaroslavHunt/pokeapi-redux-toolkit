@@ -7,6 +7,7 @@ interface IProps {
 }
 
 const FavoritesComponent: FC<IProps> = ({ data }) => {
+
     return (
         <div className="pokemons-container">
             {data.length > 0 ? (
