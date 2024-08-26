@@ -15,3 +15,34 @@
     flex-wrap: wrap;
 }
 
+.pokemon-forms-container {
+    width: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.forms-button {
+    width: 100%;
+    margin: 5px 3px;
+    background-color: #3498db;
+    border: none;
+    border-radius: 8px;
+    padding: 20px 30px;
+    font-size: 2rem;
+    color: yellow;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+
+.forms-button a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.forms-button:hover {
+    background-color: #2980b9;
+}
+
+

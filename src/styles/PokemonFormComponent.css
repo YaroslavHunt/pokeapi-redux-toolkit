@@ -1,0 +1,31 @@
+.pokemon-form-container {
+    padding: 10px;
+    margin: 10px;
+
+}
+
+.form-link {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.form-link:hover {
+    color: red;
+}
+
+.form-preview {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+
+.form-preview:hover {
+    transform: scale(1.1);
+}

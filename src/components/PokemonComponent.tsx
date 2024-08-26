@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {IPokemon} from "../models/IPokemon";
 import PokemonAbilitiesComponent from "./PokemonAbilitiesComponent";
 import PokemonStatsComponent from "./PokemonStatsComponent";
@@ -20,8 +20,8 @@ const PokemonComponent: FC<IProps> = ({pokemon}) => {
     const evoChainUrl = useAppSelector(state => state.evoChainSlice.url);
     const forms = useAppSelector(state => state.evoChainSlice.forms);
     const currentUrl = evoChainUrls.find(url => url === evoChainUrl);
+    const [showForms, setShowForms] = useState(false);
 
-    console.log(forms);
 
     useEffect(() => {
             dispatch((evoChainActions.loadSpecies(pokemon.id.toString())))
@@ -41,12 +41,13 @@ const PokemonComponent: FC<IProps> = ({pokemon}) => {
                 <div className={'abilities-types-container'}>
                     <PokemonAbilitiesComponent abilities={pokemon.abilities}/>
                     <PokemonTypesComponent types={pokemon.types}/>
+                    <button className={"forms-button"} onClick={() => setShowForms(!showForms)}>
+                        FORMS
+                    </button>
                 </div>
             </div>
-            <div>
-                {
-                    forms.map(name => <PokemonFormComponent name={name}/>)
-                }
+            <div className={"pokemon-forms-container"}>
+                {showForms && forms.map(name => <PokemonFormComponent key={name} name={name}/>)}
             </div>
         </div>
     );
