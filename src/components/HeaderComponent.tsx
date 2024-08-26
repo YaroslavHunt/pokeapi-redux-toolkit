@@ -11,7 +11,7 @@ const HeaderComponent = () => {
                     <Link to={'/'}>Home</Link>
                 </button>
                 <button className="header-button">
-                    <Link to={'/pokemons'}>Pok<span className={"e"}>é</span>mon's</Link>
+                    <Link to={'/pokemons'}>Pok<span className={"e"}>é</span>mon</Link>
                 </button>
                 <button className="header-button">
                     <Link to={'/favorites'}>Favorites</Link>
