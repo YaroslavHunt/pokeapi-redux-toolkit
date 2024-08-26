@@ -64,6 +64,10 @@
     transition: background-color 0.3s, color 0.3s;
 }
 
+.search-result-item-link {
+    text-decoration: none;
+}
+
 .search-result-item:hover {
     background-color: grey;
 }

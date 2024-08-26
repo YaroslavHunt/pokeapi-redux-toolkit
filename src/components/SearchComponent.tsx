@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "../redux/store";
 import { IPokemon } from "../models/IPokemon";
 import "../styles/SearchComponent.css";
 import { pokemonActions } from "../redux/slices/pokemonSlice";
+import {Link} from "react-router-dom";
 
 const SearchComponent: FC = () => {
     const dispatch = useAppDispatch();
@@ -63,11 +64,13 @@ const SearchComponent: FC = () => {
                         <h6 className="no-results">No results found</h6>
                     ) : (
                         results.map(pokemon => (
-                            <div key={pokemon.id} className="search-result-item">
-                                <div>{pokemon.name}</div>
-                                <div>Type: {pokemon.types.map(t => t.type.name).join(', ')}</div>
-                                <div>Abilities: {pokemon.abilities.map(a => a.ability.name).join(', ')}</div>
-                            </div>
+                            <Link key={pokemon.id} className={"search-result-item-link"} to={`pokemons/${pokemon.id}`}>
+                                <div key={pokemon.id} className="search-result-item">
+                                    <div>{pokemon.name}</div>
+                                    <div>Type: {pokemon.types.map(t => t.type.name).join(', ')}</div>
+                                    <div>Abilities: {pokemon.abilities.map(a => a.ability.name).join(', ')}</div>
+                                </div>
+                            </Link>
                         ))
                     )}
                 </div>
