@@ -6,7 +6,8 @@ import {IPokemon} from "../../models/IPokemon";
 
 
 type PokemonSliceType = {
-    pokemons: IDataPokemon[],
+    pokemons: IPokemon[],
+    pokemonsData: IDataPokemon[],
     isLoaded: boolean,
     pokemon: IPokemon
     id: string
@@ -15,6 +16,7 @@ type PokemonSliceType = {
 const pokemonInitState: PokemonSliceType = {
     id: "",
     pokemons: [],
+    pokemonsData: [],
     isLoaded: false,
     pokemon: {
         id: 1,
@@ -28,11 +30,24 @@ const pokemonInitState: PokemonSliceType = {
     }
 }
 
-const loadPokemons = createAsyncThunk(
+const loadAllPokemons = createAsyncThunk(
     'pokemonSlice/loadPokemons',
+    async (_, thunkAPI) => {
+        try {
+            const pokemons = await pokemonService.getAll();
+            return thunkAPI.fulfillWithValue(pokemons);
+        } catch (e) {
+            const error = e as AxiosError;
+            return thunkAPI.rejectWithValue(error.response?.data);
+        }
+    }
+)
+
+const loadPokemonsData = createAsyncThunk(
+    'pokemonSlice/loadPokemonsData',
     async ({offset, limit}: { offset: string, limit: string }, thunkAPI) => {
         try {
-            const pokemons = await pokemonService.getAll(offset, limit);
+            const pokemons = await pokemonService.getAllByLimit(offset, limit);
             thunkAPI.dispatch(pokemonActions.changeLoadState(true));
             return thunkAPI.fulfillWithValue(pokemons);
         } catch (e) {
@@ -46,7 +61,7 @@ const loadPokemonById = createAsyncThunk(
     'pokemonSlice/loadPokemonById',
     async (id: string, thunkAPI) => {
         try {
-            const pokemon = await pokemonService.getPokemonById(id);
+            const pokemon = await pokemonService.getPokemonByIdOrName(id);
             return thunkAPI.fulfillWithValue(pokemon);
         } catch (e) {
             const error = e as AxiosError;
@@ -79,23 +94,27 @@ export const pokemonSlice = createSlice({
     },
     extraReducers: builder =>
         builder
+            .addCase(loadAllPokemons.fulfilled,(state,action) => {
+                state.pokemons = action.payload;
+            })
             .addCase(loadPokemonById.fulfilled, (state, action) => {
                 state.pokemon = action.payload;
             })
-            .addCase(loadPokemons.fulfilled, (state, action) => {
-                state.pokemons = action.payload
+            .addCase(loadPokemonsData.fulfilled, (state, action) => {
+                state.pokemonsData = action.payload
             })
             .addCase(loadIDByName.fulfilled, (state, action) => {
                 state.id = action.payload
             })
-            .addCase(loadPokemons.rejected, () => {
+            .addCase(loadPokemonsData.rejected, () => {
                 console.log("Rejected");
             })
 });
 
 export const pokemonActions = {
     ...pokemonSlice.actions,
-    loadPokemons,
+    loadAllPokemons,
+    loadPokemons: loadPokemonsData,
     loadPokemon: loadPokemonById,
     loadId: loadIDByName
 }

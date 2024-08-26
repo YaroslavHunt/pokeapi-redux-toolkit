@@ -20,6 +20,10 @@
     -webkit-text-stroke: 1px black;
 }
 
+.e {
+    text-transform: none;
+}
+
 .header-button a {
     text-decoration: none;
     color: inherit;

@@ -17,17 +17,32 @@ const dataService = {
 }
 
 const pokemonService = {
-    getAll: async (offset: string, limit: string): Promise<IDataPokemon[]> => {
+
+    getAllByLimit: async (offset: string, limit: string): Promise<IDataPokemon[]> => {
         const response = await axiosInstance.get<IData>(urls.pokemons.byLimit(offset, limit));
         return response.data.results;
     },
-    getPokemonById: async (id: string): Promise<IPokemon> => {
-        const response = await axiosInstance.get<IPokemon>(urls.pokemons.byId(id));
+    getPokemonByIdOrName: async (idOrName: string): Promise<IPokemon> => {
+        const response = await axiosInstance.get<IPokemon>(urls.pokemons.byId(idOrName));
         return response.data;
     },
     getIdByName: async (name:string): Promise<string> => {
         const response = await axiosInstance.get(urls.pokemons.base + `/${name}`);
         return response.data.id.toString();
+    },
+    getAll: async (): Promise<IPokemon[]> => {
+        const totalRes = await dataService.getData();
+        const total = totalRes.count;
+        const res = await pokemonService.getAllByLimit("0", total.toString());
+        let pokemons: IPokemon[] = [];
+
+        await Promise.all(
+            res.map(async (data: IDataPokemon) => {
+                const pokemon = await pokemonService.getPokemonByIdOrName(data.name);
+                pokemons.push(pokemon);
+            })
+        );
+        return pokemons;
     }
 }
 

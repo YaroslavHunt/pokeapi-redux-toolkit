@@ -6,7 +6,7 @@ import { useAppSelector } from "../redux/store";
 import { IPokemon } from "../models/IPokemon";
 
 const FavoritesPage = () => {
-    const { pokemons } = useAppSelector(state => state.pokemonSlice);
+    const { pokemonsData } = useAppSelector(state => state.pokemonSlice);
     const [searchParams] = useSearchParams();
     const [favorites, setFavorites] = useState<IPokemon[]>([]);
     const pageSize = 20;
@@ -16,7 +16,7 @@ const FavoritesPage = () => {
     useEffect(() => {
         const storedFavorites: IPokemon[] = [];
 
-        pokemons.forEach(item => {
+        pokemonsData.forEach(item => {
             const storageKey = `${item.name}`;
             const stored = localStorage.getItem(storageKey);
             if (stored) {
@@ -26,7 +26,7 @@ const FavoritesPage = () => {
         });
 
         setFavorites(storedFavorites);
-    }, [pokemons]);
+    }, [pokemonsData]);
 
     const totalPages = Math.ceil(favorites.length / pageSize);
     const offset = (currentPage - 1) * pageSize;

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import '../styles/HeaderComponent.css';
+import SearchComponent from "./SearchComponent";
 
 const HeaderComponent = () => {
     return (
@@ -10,12 +11,13 @@ const HeaderComponent = () => {
                     <Link to={'/'}>Home</Link>
                 </button>
                 <button className="header-button">
-                    <Link to={'/pokemons'}>Pokemon's</Link>
+                    <Link to={'/pokemons'}>Pok<span className={"e"}>é</span>mon's</Link>
                 </button>
                 <button className="header-button">
                     <Link to={'/favorites'}>Favorites</Link>
                 </button>
             </div>
+            <SearchComponent/>
             <hr/>
         </div>
     );

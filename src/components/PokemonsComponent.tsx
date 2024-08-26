@@ -6,14 +6,14 @@ import '../styles/PokemonsComponent.css';
 
 const PokemonsComponent = () => {
 
-    const { pokemons, isLoaded } = useAppSelector(state => state.pokemonSlice);
+    const { pokemonsData, isLoaded } = useAppSelector(state => state.pokemonSlice);
 
 
     return (
         <div className="pokemons-container">
             {
                 isLoaded ? (
-                    pokemons.map(pokemon => (
+                    pokemonsData.map(pokemon => (
                         <PokemonDataComponent key={pokemon.url} pokemon={pokemon} />
                     ))
                 ) : (
